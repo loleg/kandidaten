@@ -1,121 +1,63 @@
-from datetime import date
-from pony.orm import *
+from datetime import datetime
+from flask import Markup
+from flask_peewee.auth import BaseUser
+from peewee import *
 
-db = Database("sqlite", "database.sqlite", create_db=True)
+from app import db
 
-class Councillor(db.Entity):
-    _table_ = "councillor"
-    id = PrimaryKey(int, auto=True)
-    adminId = Required(int)
-    party = Required("Party")
-    council = Required("Council")
-    canton = Required("Canton")
-    promises = Set("Promise")
-    votes = Set("Vote")
-    councillor_interests = Set("CouncillorInterest")
-    firstName = Required(str)
-    lastName = Required(str)
+class Party(db.Model):
+    name = TextField()
 
+class Council(db.Model):
+    name = TextField()
 
-class Party(db.Entity):
-    id = PrimaryKey(int, auto=True)
-    councillors = Set(Councillor)
-    name = Required(str)
+class Canton(db.Model):
+    name = TextField()
 
+class Councillor(db.Model):
+    id_admin = IntegerField()
+    id_politnetz = IntegerField()
+    name = CharField()
+    active_since = DateTimeField()
+    active_until = DateTimeField()
+    photo = CharField()
+    party = ForeignKeyField(Party)
+    council = ForeignKeyField(Council)
+    canton = ForeignKeyField(Canton)
+    class Meta:
+        order_by = ('party', 'name')
 
-class Council(db.Entity):
-    id = PrimaryKey(int, auto=True)
-    councillors = Set(Councillor)
-    name = Required(str)
+class Promise(db.Model):
+    created_date = DateTimeField(default=datetime.now)
+    date = DateTimeField(default=datetime.now)
+    text = TextField()
+    url = CharField()
+    councillor = ForeignKeyField(Councillor, null=False, related_name='promises')
 
+class Decision(db.Model):
+    created_date = DateTimeField(default=datetime.now)
+    date = DateTimeField(default=datetime.now)
+    text = TextField()
+    url = CharField()
+    councillor = ForeignKeyField(Councillor, null=False, related_name='decisions')
 
-class Canton(db.Entity):
-    id = PrimaryKey(int, auto=True)
-    councillors = Set(Councillor)
-    name = Required(str)
+class Opinion(db.Model):
+    created_date = DateTimeField(default=datetime.now)
+    valid = BooleanField()
+    comment = TextField()
+    quote_promise = CharField()
+    quote_decision = CharField()
+    promise = ForeignKeyField(Promise, null=False, related_name='opinions')
+    decision = ForeignKeyField(Decision, null=False, related_name='opinions')
+    class Meta:
+        indexes = (('promise', 'decision'), True)
 
-
-class Promise(db.Entity):
-    id = PrimaryKey(int, auto=True)
-    promise_source = Required("PromiseSource")
-    councillor = Required(Councillor)
-    promise_behaviours = Set("PromiseBehaviour")
-    title = Required(str)
-    text = Required(str)
-    link = Required(str)
-
-
-class PromiseSource(db.Entity):
-    id = PrimaryKey(int, auto=True)
-    promises = Set(Promise)
-    name = Required(str)
-    link = Required(str)
-
-
-class Descriptor(db.Entity):
-    id = PrimaryKey(int, auto=True)
-    promise_behaviours = Set("PromiseBehaviour")
-    affair_behaviours = Set("AffairBehaviour")
-    interest_behaviours = Set("InterestBehaviour")
-    name = Required(unicode)
-
-
-class Affair(db.Entity):
-    id = PrimaryKey(int, auto=True)
-    votes = Set("Vote")
-    affair_behaviours = Set("AffairBehaviour")
-
-
-class Interest(db.Entity):
-    id = PrimaryKey(int, auto=True)
-    interest_behaviours = Set("InterestBehaviour")
-    councillor_interests = Set("CouncillorInterest")
-    name = Required(str)
-
-
-class PromiseBehaviour(db.Entity):
-    _table_ = "Promise_behaviour"
-    id = PrimaryKey(int, auto=True)
-    promise = Required(Promise)
-    descriptor = Required(Descriptor)
-    proCon = Required(bool)
-
-
-class AffairBehaviour(db.Entity):
-    id = PrimaryKey(int, auto=True)
-    descriptor = Required(Descriptor)
-    affair = Required(Affair)
-    proCon = Required(unicode)
-
-
-class InterestBehaviour(db.Entity):
-    id = PrimaryKey(int, auto=True)
-    descriptor = Required(Descriptor)
-    interest = Required(Interest)
-    proCon = Required(unicode)
-
-
-class CouncillorInterest(db.Entity):
-    id = PrimaryKey(int, auto=True)
-    councillor = Required(Councillor)
-    interest = Required(Interest)
-    start = Required(date)
-    end = Required(date)
-    interest_connection_type = Required("InterestConnectionType")
-
-
-class Vote(db.Entity):
-    id = PrimaryKey(int, auto=True)
-    councillor = Required(Councillor)
-    affair = Required(Affair)
-
-
-class InterestConnectionType(db.Entity):
-    """Verwaltungsrat, Mitglied"""
-    id = PrimaryKey(int, auto=True)
-    councillor_interests = Set(CouncillorInterest)
-    name = Required(str)
-
-
-sql_debug(True)
-db.generate_mapping(create_tables=True)
+class User(db.Model, BaseUser):
+    username = CharField()
+    password = CharField()
+    email = CharField()
+    join_date = DateTimeField(default=datetime.now)
+    active = BooleanField(default=True)
+    admin = BooleanField(default=True)
+    def __unicode__(self):
+        return self.username

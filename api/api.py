@@ -1,50 +1,30 @@
-from flask import Flask
-from flask_restful import reqparse, abort, Api, Resource
+from flask_peewee.rest import RestAPI, RestResource, UserAuthentication, AdminAuthentication, RestrictOwnerResource
 
-app = Flask(__name__)
-api = Api(app)
+from app import app
+# from auth import auth
+from models import Councillor, Promise, Decision, Opinion
 
-PROMISES = {
-    'p1': {'who': 'Major Laser', 'what': 'Save the world!', 'when': '2014-04-01j'}
-}
+api = RestAPI(app)
 
-def abort_if_doesnt_exist(_id):
-    if _id not in PROMISES:
-        abort(404, message="Promise with ID {} doesn't exist".format(_id))
+class CouncillorResource(RestResource):
+    exclude = ()
 
-parser = reqparse.RequestParser()
-parser.add_argument('task')
+class PromiseResource(RestResource):
+    exclude = ()
+    # include_resources = {'user': UserResource}
 
-class Promise(Resource):
-    def get(self, promise_id):
-        abort_if_doesnt_exist(promise_id)
-        return PROMISE[promise_id]
+class DecisionResource(RestResource):
+    exclude = ()
 
-    def delete(self, promise_id):
-        abort_if_doesnt_exist(promise_id)
-        del PROMISE[promise_id]
-        return '', 204
+class OpinionResource(RestResource):
+    include_resources = {
+        'promise': PromiseResource,
+        'decision': DecisionResource,
+    }
+    paginate_by = None
 
-    def put(self, promise_id):
-        args = parser.parse_args()
-        p = {'who': args['who'], 'what': args['what'], 'when': args['when']}
-        PROMISES[promise_id] = task
-        return p, 201
-
-class PromiseList(Resource):
-    def get(self):
-        return PROMISES
-
-    def post(self):
-        args = parser.parse_args()
-        promise_id = int(max(PROMISES.keys()).lstrip('promise')) + 1
-        promise_id = 'p%i' % promise_id
-        PROMISES[promise_id] = {'who': args['who'], 'what': args['what'], 'when': args['when']}
-        return PROMISES[promise_id], 201
-
-# setup resource routing
-api.add_resource(PromiseList, '/promises')
-api.add_resource(Promise, '/promises/<promise_id>')
-
-if __name__ == '__main__':
-    app.run(debug=True)
+# register our models so they are exposed via /api/<model>/
+api.register(Councillor, CouncillorResource)
+api.register(Promise, PromiseResource)
+api.register(Decision, DecisionResource)
+api.register(Opinion, OpinionResource)
