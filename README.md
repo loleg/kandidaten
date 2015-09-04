@@ -10,8 +10,15 @@ Run a local web server (Nginx / Apache) or use `python -m SimpleHTTPServer`
 
 ## Backend
 
-Install Python, ideally in a virtualenv, as well as pip, then
-`pip install -r requirements.txt`
+Install Python, virtualenv and pip (on Mac best with [Homebrew](http://brew.sh/)).
+
+Enter the project 'api' folder in your console, then
+
+```
+virtualenv env
+. env/bin/activate
+pip install -r requirements.txt
+```
 
 Run the API server with:
 ```
