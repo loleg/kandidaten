@@ -1,6 +1,5 @@
 from datetime import datetime
 from flask import Markup
-from flask_peewee.auth import BaseUser
 from peewee import *
 
 from app import db
@@ -50,14 +49,4 @@ class Opinion(db.Model):
     promise = ForeignKeyField(Promise, null=False, related_name='opinions')
     decision = ForeignKeyField(Decision, null=False, related_name='opinions')
     class Meta:
-        indexes = (('promise', 'decision'), True)
-
-class User(db.Model, BaseUser):
-    username = CharField()
-    password = CharField()
-    email = CharField()
-    join_date = DateTimeField(default=datetime.now)
-    active = BooleanField(default=True)
-    admin = BooleanField(default=True)
-    def __unicode__(self):
-        return self.username
+        indexes = (('promise', 'decision'), False)

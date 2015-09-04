@@ -7,3 +7,4 @@ class Configuration(object):
         'check_same_thread': False,
     }
     DEBUG = True
+    SECRET_KEY = 'asdfghjkl'

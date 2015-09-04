@@ -20,9 +20,18 @@ virtualenv env
 pip install -r requirements.txt
 ```
 
-Run the API server with:
+Create a default user from a `python` shell:
+```python
+import auth
+auth.User.create_table(fail_silently=True)  # make sure table created.
+admin = auth.User(username='admin', email='', admin=True, active=True)
+admin.set_password('admin')
+admin.save()
 ```
-python api.py
+
+Run the backend server with:
+```
+python run.py
 ```
 
 Note: for the frontend and backend to talk they need to be on the same host
