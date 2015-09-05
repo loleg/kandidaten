@@ -16,8 +16,8 @@ def import_cantons(filename):
     with open('../data/%s.csv' % filename, 'rb') as csvfile:
         spamreader = csv.DictReader(csvfile, delimiter=',', quotechar='"')
         for row in spamreader:
-            c = Canton.create_or_get(name=row['name-de'], initials=row['abbr'])
-            count = count + 1
+            c, created = Canton.create_or_get(name=row['name-de'], initials=row['abbr'])
+            if created: count = count + 1
     print "%d cantons loaded" % count
 
 def import_parties(filename):
@@ -25,8 +25,8 @@ def import_parties(filename):
     with open('../data/%s.csv' % filename, 'rb') as csvfile:
         spamreader = csv.DictReader(csvfile, delimiter=',', quotechar='"')
         for row in spamreader:
-            p = Party.create_or_get(name=row['name-de'], shortname=row['abbr'].upper())
-            count = count + 1
+            p, created = Party.create_or_get(name=row['name-de'], shortname=row['abbr'].upper())
+            if created: count = count + 1
     print "%d parties loaded" % count
 
 def import_councillors(filename, council):
@@ -36,8 +36,8 @@ def import_councillors(filename, council):
         for row in spamreader:
             party = Party.by_shortname(row['party_short'])
             canton = Canton.by_name(row['district'])
-            c = Councillor.create_or_get(
-                id_smartvote=row['ID_Candidate'],
+            c, created = Councillor.create_or_get(
+                id_smartvote=int(row['ID_Candidate']),
                 first_name=row['firstname'],
                 last_name=row['lastname'],
                 photo = row['LINK_photo'],
@@ -45,7 +45,7 @@ def import_councillors(filename, council):
                 council = council,
                 canton = canton
             )
-            count = count + 1
+            if created: count = count + 1
     print "%d councillors loaded into %s" % (count, council.name)
 
 
@@ -62,9 +62,7 @@ def import_json(file):
 def run():
     import_cantons('cantons')
     import_parties('parties')
-    nr = Council(name="Nationalrat")
-    nr.save()
+    nr, created = Council.get_or_create(name="Nationalrat")
+    sr, created = Council.get_or_create(name="Ständerat")
     import_councillors('NR-Kandidierende', nr)
-    sr = Council(name="Ständerat")
-    sr.save()
     import_councillors('SR-Kandidierende', sr)

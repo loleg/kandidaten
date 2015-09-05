@@ -11,11 +11,8 @@ class Party(db.Model):
         return self.name
     @staticmethod
     def by_shortname(shortname):
-        try:
-            return Party.get(Party.shortname % shortname.upper())
-        except Party.DoesNotExist:
-            print "Party %s not found" % shortname
-            return None
+        p, created = Party.get_or_create(shortname=shortname.upper())
+        return p
 
 class Canton(db.Model):
     name = CharField()
@@ -25,7 +22,7 @@ class Canton(db.Model):
     @staticmethod
     def by_name(name):
         try:
-            return Canton.get(Canton.name % name)
+            return Canton.get(Canton.name==name)
         except Canton.DoesNotExist:
             print "Canton %s not found" % name
             return None
