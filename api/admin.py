@@ -11,9 +11,9 @@ from models import Councillor, Promise, Decision, Opinion
 admin = Admin(app, auth, branding='KandiDaten Backend')
 
 class CouncillorAdmin(ModelAdmin):
-    columns = ('name', 'party', 'active_since',)
-    foreign_key_lookups = {'party': 'name'}
-    filter_fields = ('name', 'active_date', 'party__name')
+    columns = ('name', 'party', 'canton', 'active_since',)
+    # foreign_key_lookups = {'party': 'name', 'canton': 'initials'}
+    # filter_fields = ('name', 'active_date', 'party__name', 'canton__initials')
 
 class PromiseAdmin(ModelAdmin):
     columns = ('date', 'text', 'councillor',)

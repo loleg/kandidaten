@@ -20,13 +20,15 @@ virtualenv env
 pip install -r requirements.txt
 ```
 
-Create a default user from a `python` shell:
+Create a default user and load data from a `python` shell:
 ```python
-import auth
-auth.User.create_table(fail_silently=True)  # make sure table created.
+import auth, main
+main.create_tables()
 admin = auth.User(username='admin', email='', admin=True, active=True)
 admin.set_password('admin')
 admin.save()
+from loader import run
+run()
 ```
 
 Run the backend server with:
