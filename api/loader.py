@@ -37,16 +37,17 @@ def import_councillors(filename, council):
             if row['incumbent'] == '0': continue
             party = Party.by_shortname(row['party_short'])
             canton = Canton.by_name(row['district'])
-            c, created = Councillor.create_or_get(
+            c, created = Councillor.get_or_create(
                 id_smartvote=int(row['ID_Candidate']),
                 first_name=row['firstname'],
-                last_name=row['lastname'],
-                occupation = row['occupation'],
-                photo = row['LINK_photo'],
-                party = party,
-                council = council,
-                canton = canton
+                last_name=row['lastname']
             )
+            c.occupation = row['occupation']
+            c.photo = row['LINK_photo']
+            c.party = party
+            c.council = council
+            c.canton = canton
+            c.save()
             if created: count = count + 1
     print "%d councillors loaded into %s" % (count, council.name)
 

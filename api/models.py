@@ -36,15 +36,16 @@ class Council(db.Model):
         return self.name
 
 class Councillor(db.Model):
+    last_name = CharField()
+    first_name = CharField()
     id_admin = IntegerField(unique=True, null=True)
     id_politnetz = IntegerField(unique=True, null=True)
     id_smartvote = IntegerField(unique=True, null=True)
-    first_name = CharField()
-    last_name = CharField()
     photo = CharField(null=True)
+    occupation = CharField(null=True)
     party = ForeignKeyField(Party, null=True)
-    canton = ForeignKeyField(Canton)
-    council = ForeignKeyField(Council)
+    canton = ForeignKeyField(Canton, null=True)
+    council = ForeignKeyField(Council, null=True)
     def __unicode__(self):
         return "%s %s" % (self.first_name, self.last_name)
 
