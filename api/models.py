@@ -11,8 +11,11 @@ class Party(db.Model):
         return self.name
     @staticmethod
     def by_shortname(shortname):
-        p, created = Party.get_or_create(shortname=shortname.upper())
-        return p
+        try:
+            return Party.get(Party.shortname==shortname.upper())
+        except Party.DoesNotExist:
+            print "Party %s not found" % shortname
+            return None
 
 class Canton(db.Model):
     name = CharField()
@@ -43,7 +46,7 @@ class Councillor(db.Model):
     canton = ForeignKeyField(Canton)
     council = ForeignKeyField(Council)
     def __unicode__(self):
-        return self.name
+        return "%s %s" % (self.first_name, self.last_name)
 
 class Promise(db.Model):
     created_date = DateTimeField(default=datetime.now)

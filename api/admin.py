@@ -11,18 +11,18 @@ from models import Councillor, Promise, Decision, Opinion
 admin = Admin(app, auth, branding='KandiDaten Backend')
 
 class CouncillorAdmin(ModelAdmin):
-    columns = ('name', 'party', 'canton', 'active_since',)
+    columns = ('council', 'first_name', 'last_name', 'party', 'canton')
     # foreign_key_lookups = {'party': 'name', 'canton': 'initials'}
     # filter_fields = ('name', 'active_date', 'party__name', 'canton__initials')
 
 class PromiseAdmin(ModelAdmin):
     columns = ('date', 'text', 'councillor',)
-    foreign_key_lookups = {'councillor': 'name'}
+    foreign_key_lookups = {'councillor': 'last_name'}
     exclude = ('created_date',)
 
 class DecisionAdmin(ModelAdmin):
     columns = ('date', 'text', 'councillor',)
-    foreign_key_lookups = {'councillor': 'name'}
+    foreign_key_lookups = {'councillor': 'last_name'}
     exclude = ('created_date',)
 
 class OpinionAdmin(ModelAdmin):

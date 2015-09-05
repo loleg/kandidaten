@@ -34,6 +34,7 @@ def import_councillors(filename, council):
     with open('../data/%s.csv' % filename, 'rb') as csvfile:
         spamreader = csv.DictReader(csvfile, delimiter=',', quotechar='"')
         for row in spamreader:
+            if row['incumbent'] == '0': continue
             party = Party.by_shortname(row['party_short'])
             canton = Canton.by_name(row['district'])
             c, created = Councillor.create_or_get(
