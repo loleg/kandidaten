@@ -41,6 +41,7 @@ def import_councillors(filename, council):
                 id_smartvote=int(row['ID_Candidate']),
                 first_name=row['firstname'],
                 last_name=row['lastname'],
+                occupation = row['occupation'],
                 photo = row['LINK_photo'],
                 party = party,
                 council = council,
