@@ -128,7 +128,7 @@
     <script id="template-latest" type="x-tmpl-mustache">
     {{#latest}}
       <div class="col-lg-4">
-        <img class="img-circle" src="http://www.smartvote.ch{{promise.councillor.photo}}" alt="" width="140" height="140">
+        <img class="img-circle" src="{{promise.councillor.photo}}" alt="" width="140" height="140">
         <h4>
           {{promise.councillor.first_name}}
           {{promise.councillor.last_name}}
@@ -173,6 +173,7 @@
             {{first_name}}
           </span>
           {{last_name}}
+          <span class="sparkline">{{tristates}}</span>
         </h2>
         <h3>
           {{council.name}}
@@ -184,7 +185,7 @@
           <ul>
           {{#promises}}
           <li>
-            <a href="http://www.smartvote.ch{{url}}" target="_blank">{{date | date}}</a>:
+            <a href="{{url}}" target="_blank">{{date | date}}</a>:
             {{text}}
           </li>
           {{/promises}}
@@ -245,6 +246,7 @@
         <script src="bower_components/jquery/jquery.js"></script>
         <script src="bower_components/mustache/mustache.js"></script>
         <script src="bower_components/mustache-wax/mustache-wax.js"></script>
+        <script src="bower_components/jquery-sparkline/dist/jquery.sparkline.js"></script>
         <script src="scripts/main.js"></script>
         <!-- endbuild -->
 

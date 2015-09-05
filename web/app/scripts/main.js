@@ -26,12 +26,17 @@ function load_promised(data) {
       'text': o.text,
       'date': o.date,
     });
+    ppl[oid].tristates = '1,-1,1,1,1,-1';
   });
   var land = $.map(ppl, function(value, index) { return [value]; });
   var template = $('#template-promised').html();
   Mustache.parse(template);
   var rendered = Mustache.render(template, {'promised': land});
-  $('#target-promised').html(rendered);
+  var target = $('#target-promised').html(rendered);
+
+  $('.sparkline', target).sparkline([1,-1,1,1,1,-1],
+    {type: 'tristate', posBarColor: '#00bf00', negBarColor: '#ff7f00'}
+  );
 }
 
 $.get('/api/comment/', load_latest);

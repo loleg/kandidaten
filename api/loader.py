@@ -43,7 +43,7 @@ def import_councillors(filename, council):
                 last_name=row['lastname']
             )
             c.occupation = row['occupation']
-            c.photo = row['LINK_photo']
+            c.photo = 'http://www.smartvote.ch' + row['LINK_photo']
             c.party = party
             c.council = council
             c.canton = canton

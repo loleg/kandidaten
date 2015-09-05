@@ -29,3 +29,7 @@
 #topCarousel .carousel-caption {
   background: rgba(0, 0, 0, 0.5);
 }
+
+.sparkline {
+  height: 25px;
+}
