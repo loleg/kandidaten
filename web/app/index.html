@@ -150,9 +150,9 @@
 
         </p>
         <p>
-          <a class="btn btn-lg btn-success" href="#" role="button">Stimmt.</a>
-          <a class="btn btn-lg btn-warning" href="#" role="button">No way!</a>
-          <a class="btn btn-lg btn-default" href="#" role="button">Teilen</a>
+          <a class="btn btn-lg btn-success" href="#" role="button" data-toggle="modal" data-target="#stimmt">Stimmt.</a>
+          <a class="btn btn-lg btn-warning" href="#" role="button" data-toggle="modal" data-target="#stimmt">No way!</a>
+          <a class="btn btn-lg btn-default" href="https://twitter.com/intent/tweet?button_hashtag=kandidaten" data-size="large" data-related="flo_rizzle,_alexarnold" data-url="http://kandidaten.soda.camp" role="button">Teilen</a>
         </p>
 
       </div>
@@ -226,7 +226,27 @@
 
   </div><!-- /.container -->
 
-
+  <!-- Modals -->
+  <div class="modal fade" id="stimmt" tabindex="-1" role="dialog" aria-labelledby="stimmtLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="stimmtLabel">Mitstimmen</h4>
+        </div>
+        <div class="modal-body">
+          Sie findet also, dass das ein Wiederspruch ist?
+          Ihr Kommentar:
+          <textarea>
+          </textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Abbruch</button>
+          <button type="button" class="btn btn-primary">Jetzt teilen</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
     <!--[if lt IE 7]>
       <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
