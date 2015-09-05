@@ -8,3 +8,4 @@ class Configuration(object):
     }
     DEBUG = True
     SECRET_KEY = 'asdfghjkl'
+    SERVER_NAME = '0.0.0.0:2015'
