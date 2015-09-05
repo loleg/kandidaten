@@ -8,8 +8,4 @@ function loadFeatured(data) {
   $('#target-featured').html(rendered);
 }
 
-function expandQuote(e) {
-  return false;
-}
-
 $.get('/api/comment/', loadFeatured);

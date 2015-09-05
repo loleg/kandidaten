@@ -21,3 +21,11 @@
 .comments .btn-warning {
   font-size: 155%;
 }
+
+#topCarousel .carousel-inner > .item > img {
+  height: auto;
+}
+
+#topCarousel .carousel-caption {
+  background: rgba(0, 0, 0, 0.5);
+}
