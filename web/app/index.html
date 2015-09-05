@@ -124,7 +124,7 @@
   <div class="container marketing">
 
 
-    <div class="row" id="target-featured">
+    <div class="row comments" id="target-featured">
     </div><!-- /.row -->
 
     <script id="template-featured" type="x-tmpl-mustache">
@@ -141,23 +141,20 @@
         sagt
 
         <b><i class="fa fa-quote-left"></i>
-        <span class="promise">{{quote_promise}}</span>
-        <a href="javascript:expandQuote()" data-text="{{promise.text}}">...</a>
+        <span class="promise">{{promise.text}}</span>
         <i class="fa fa-quote-right"></i></b>
 
         und am <a href="{{decision.url}}">{{decision.date}}</a>
         bat
 
         <b><i class="fa fa-quote-left"></i>
-        <span class="decision">{{quote_decision}}</span>
-        <a href="javascript:expandQuote()" data-text="{{decision.text}}">...</a>
+        <span class="decision">{{decision.text}}</span>
         <i class="fa fa-quote-right"></i></b>
 
         </p>
-        <p><i>Nü, was meinsch?</i></p>
         <p>
           <a class="btn btn-lg btn-success" href="#" role="button">Stimmt.</a>
-          <a class="btn btn-lg btn-warning" href="#" role="button" style="font-size:110%">No way!</a>
+          <a class="btn btn-lg btn-warning" href="#" role="button">No way!</a>
           <a class="btn btn-lg btn-default" href="#" role="button">Teilen</a>
         </p>
 
