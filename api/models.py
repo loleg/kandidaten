@@ -55,6 +55,8 @@ class Promise(db.Model):
     text = TextField()
     url = CharField(null=True)
     councillor = ForeignKeyField(Councillor, null=False, related_name='promises')
+    def __unicode__(self):
+        return "%s: %s" % (self.councillor.last_name, self.text[0:25])
 
 class Decision(db.Model):
     created_date = DateTimeField(default=datetime.now)
@@ -62,6 +64,8 @@ class Decision(db.Model):
     text = TextField()
     url = CharField(null=True)
     councillor = ForeignKeyField(Councillor, null=False, related_name='decisions')
+    def __unicode__(self):
+        return "%s: %s" % (self.councillor.last_name, self.text[0:25])
 
 class Comment(db.Model):
     created_date = DateTimeField(default=datetime.now)
