@@ -1,5 +1,12 @@
 // jshint ignore: start
 
+Mustache.Formatters = {
+  "date": function (dt) {
+    var a = new Date(dt.replace(' ', 'T'));
+    return a.getUTCDate() + '.' + a.getUTCMonth() + '.' + a.getUTCFullYear();
+  }
+};
+
 function load_latest(data) {
   var template = $('#template-latest').html();
   Mustache.parse(template);

@@ -128,22 +128,21 @@
     <script id="template-latest" type="x-tmpl-mustache">
     {{#latest}}
       <div class="col-lg-4">
-        <img class="img-circle" src="{{promise.councillor.photo}}" alt="" width="140" height="140">
+        <img class="img-circle" src="http://www.smartvote.ch{{promise.councillor.photo}}" alt="" width="140" height="140">
         <h4>
           {{promise.councillor.first_name}}
           {{promise.councillor.last_name}}
         </h4>
 
         <p>
-        Am <a href="{{promise.url}}" target="_blank">{{promise.date}}</a>
+        Am <a href="{{promise.url}}" target="_blank">{{promise.date | date}}</a>
         sagt
 
         <b><i class="fa fa-quote-left"></i>
         <span class="promise">{{promise.text}}</span>
         <i class="fa fa-quote-right"></i></b>
 
-        und am <a href="{{decision.url}}" target="_blank">{{decision.date}}</a>
-        bat
+        und am <a href="{{decision.url}}" target="_blank">{{decision.date | date}}</a>
 
         <b><i class="fa fa-quote-left"></i>
         <span class="decision">{{decision.text}}</span>
@@ -185,7 +184,7 @@
           <ul>
           {{#promises}}
           <li>
-            <a href="{{url}}" target="_blank">{{date}}</a>
+            <a href="http://www.smartvote.ch{{url}}" target="_blank">{{date | date}}</a>:
             {{text}}
           </li>
           {{/promises}}
@@ -245,6 +244,7 @@
         <!-- build:js scripts/main.js -->
         <script src="bower_components/jquery/jquery.js"></script>
         <script src="bower_components/mustache/mustache.js"></script>
+        <script src="bower_components/mustache-wax/mustache-wax.js"></script>
         <script src="scripts/main.js"></script>
         <!-- endbuild -->
 
