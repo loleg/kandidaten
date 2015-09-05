@@ -12,15 +12,17 @@ class CouncillorResource(RestResource):
 
 class PromiseResource(RestResource):
     exclude = ()
-    # include_resources = {'user': UserResource}
+    include_resources = {
+        'councillor': CouncillorResource
+    }
 
 class DecisionResource(RestResource):
-    exclude = ()
+    exclude = ('councillor')
 
 class CommentResource(RestResource):
     include_resources = {
         'promise': PromiseResource,
-        'decision': DecisionResource,
+        'decision': DecisionResource
     }
     paginate_by = None
 
