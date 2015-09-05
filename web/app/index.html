@@ -130,18 +130,31 @@
     <script id="template-featured" type="x-tmpl-mustache">
     {{#featured}}
       <div class="col-lg-4">
-        <img class="img-circle" src="{{portrait}}" alt="" width="140" height="140">
-        <h2>{{name}}</h2>
+        <img class="img-circle" src="{{promise.councillor.photo}}" alt="" width="140" height="140">
+        <h4>
+          {{promise.councillor.first_name}}
+          {{promise.councillor.last_name}}
+        </h4>
 
         <p>
-        Am <a href="{{promise.url}}">{{promise.date}}</a> schreibt
+        Am <a href="{{promise.url}}">{{promise.date}}</a>
+        sagt
+
         <b><i class="fa fa-quote-left"></i>
-          {{promise.quote}}
+        <span class="promise">{{quote_promise}}</span>
+        <a href="javascript:expandQuote()" data-text="{{promise.text}}">...</a>
         <i class="fa fa-quote-right"></i></b>
-        und am {{decision.date}}
-        <a href="{{decision.url}}">{{decision.quote}}</a>.
+
+        und am <a href="{{decision.url}}">{{decision.date}}</a>
+        bat
+
+        <b><i class="fa fa-quote-left"></i>
+        <span class="decision">{{quote_decision}}</span>
+        <a href="javascript:expandQuote()" data-text="{{decision.text}}">...</a>
+        <i class="fa fa-quote-right"></i></b>
+
         </p>
-        <p><i>Nü, was meinsch?<i></p>
+        <p><i>Nü, was meinsch?</i></p>
         <p>
           <a class="btn btn-lg btn-success" href="#" role="button">Stimmt.</a>
           <a class="btn btn-lg btn-warning" href="#" role="button" style="font-size:110%">No way!</a>
