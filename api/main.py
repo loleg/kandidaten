@@ -17,7 +17,7 @@ def create_tables():
     Canton.create_table(fail_silently=True)
     Promise.create_table(fail_silently=True)
     Decision.create_table(fail_silently=True)
-    Opinion.create_table(fail_silently=True)
+    Comment.create_table(fail_silently=True)
 
 if __name__ == '__main__':
     app.run()

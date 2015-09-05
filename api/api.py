@@ -2,7 +2,7 @@ from flask_peewee.rest import RestAPI, RestResource, UserAuthentication, AdminAu
 
 from app import app
 from auth import auth
-from models import Councillor, Promise, Decision, Opinion
+from models import Councillor, Promise, Decision, Comment
 
 api = RestAPI(app)
 admin_auth = AdminAuthentication(auth)
@@ -17,7 +17,7 @@ class PromiseResource(RestResource):
 class DecisionResource(RestResource):
     exclude = ()
 
-class OpinionResource(RestResource):
+class CommentResource(RestResource):
     include_resources = {
         'promise': PromiseResource,
         'decision': DecisionResource,
@@ -31,5 +31,5 @@ class UserResource(RestResource):
 api.register(Councillor, CouncillorResource)
 api.register(Promise, PromiseResource)
 api.register(Decision, DecisionResource)
-api.register(Opinion, OpinionResource)
+api.register(Comment, CommentResource)
 api.register(auth.User, UserResource, auth=admin_auth)

@@ -6,7 +6,7 @@ from flask_peewee.filters import QueryFilter
 
 from app import app, db
 from auth import auth
-from models import Councillor, Promise, Decision, Opinion
+from models import Councillor, Promise, Decision, Comment
 
 admin = Admin(app, auth, branding='KandiDaten Backend')
 
@@ -25,11 +25,11 @@ class DecisionAdmin(ModelAdmin):
     foreign_key_lookups = {'councillor': 'last_name'}
     exclude = ('created_date',)
 
-class OpinionAdmin(ModelAdmin):
+class CommentAdmin(ModelAdmin):
     columns = ('created_date', 'valid', 'quote_promise', 'quote_decision')
 
 auth.register_admin(admin)
 admin.register(Councillor, CouncillorAdmin)
 admin.register(Promise, PromiseAdmin)
 admin.register(Decision, DecisionAdmin)
-admin.register(Opinion, OpinionAdmin)
+admin.register(Comment, CommentAdmin)

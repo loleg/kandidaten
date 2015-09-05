@@ -63,11 +63,11 @@ class Decision(db.Model):
     url = CharField(null=True)
     councillor = ForeignKeyField(Councillor, null=False, related_name='decisions')
 
-class Opinion(db.Model):
+class Comment(db.Model):
     created_date = DateTimeField(default=datetime.now)
     valid = BooleanField()
     comment = TextField(null=True)
     quote_promise = CharField(null=True)
     quote_decision = CharField(null=True)
-    promise = ForeignKeyField(Promise, null=False, related_name='opinions')
-    decision = ForeignKeyField(Decision, null=False, related_name='opinions')
+    promise = ForeignKeyField(Promise, null=False, related_name='comments')
+    decision = ForeignKeyField(Decision, null=False, related_name='comments')
