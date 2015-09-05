@@ -7,11 +7,23 @@ from models import Councillor, Promise, Decision, Comment
 api = RestAPI(app)
 admin_auth = AdminAuthentication(auth)
 
-class CouncillorResource(RestResource):
+class CantonResource(RestResource):
     exclude = ()
 
-class PromiseResource(RestResource):
+class CouncilResource(RestResource):
     exclude = ()
+
+class PartyResource(RestResource):
+    exclude = ()
+
+class CouncillorResource(RestResource):
+    include_resources = {
+        'canton': CantonResource,
+        'council': CouncilResource,
+        'party': PartyResource,
+    }
+
+class PromiseResource(RestResource):
     include_resources = {
         'councillor': CouncillorResource
     }

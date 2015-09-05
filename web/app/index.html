@@ -122,11 +122,11 @@
   <div class="container marketing">
 
 
-    <div class="row comments" id="target-featured">
+    <div class="row comments" id="target-latest">
     </div><!-- /.row -->
 
-    <script id="template-featured" type="x-tmpl-mustache">
-    {{#featured}}
+    <script id="template-latest" type="x-tmpl-mustache">
+    {{#latest}}
       <div class="col-lg-4">
         <img class="img-circle" src="{{promise.councillor.photo}}" alt="" width="140" height="140">
         <h4>
@@ -135,14 +135,14 @@
         </h4>
 
         <p>
-        Am <a href="{{promise.url}}">{{promise.date}}</a>
+        Am <a href="{{promise.url}}" target="_blank">{{promise.date}}</a>
         sagt
 
         <b><i class="fa fa-quote-left"></i>
         <span class="promise">{{promise.text}}</span>
         <i class="fa fa-quote-right"></i></b>
 
-        und am <a href="{{decision.url}}">{{decision.date}}</a>
+        und am <a href="{{decision.url}}" target="_blank">{{decision.date}}</a>
         bat
 
         <b><i class="fa fa-quote-left"></i>
@@ -157,52 +157,48 @@
         </p>
 
       </div>
-    {{/featured}}
+    {{/latest}}
     </script>
 
-
-    <!-- START THE FEATURETTES --
-
     <hr class="featurette-divider">
 
+    <div id="target-promised">
+    </div>
+
+    <script id="template-promised" type="x-tmpl-mustache">
+    {{#promised}}
     <div class="row featurette">
       <div class="col-md-7">
-        <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
-        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        <h2 class="featurette-heading">
+          <span class="text-muted">
+            {{first_name}}
+          </span>
+          {{last_name}}
+        </h2>
+        <h3>
+          {{council.name}}
+          <b>{{party.name}}</b>
+          <br>
+          {{occupation}}
+        </h3>
+        <p class="lead">
+          <ul>
+          {{#promises}}
+          <li>
+            <a href="{{url}}" target="_blank">{{date}}</a>
+            {{text}}
+          </li>
+          {{/promises}}
+          </ul>
+        </p>
       </div>
       <div class="col-md-5">
-        <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+        <img class="featurette-image img-responsive center-block" data-src="{{councillor.photo}}" alt="">
       </div>
     </div>
-
     <hr class="featurette-divider">
-
-    <div class="row featurette">
-      <div class="col-md-7 col-md-push-5">
-        <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
-        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-      </div>
-      <div class="col-md-5 col-md-pull-7">
-        <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
-      </div>
-    </div>
-
-    <hr class="featurette-divider">
-
-    <div class="row featurette">
-      <div class="col-md-7">
-        <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
-        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-      </div>
-      <div class="col-md-5">
-        <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
-      </div>
-    </div>
-
-    <hr class="featurette-divider">
-
-    -- /END THE FEATURETTES -->
-
+    {{/promised}}
+    </script>
 
     <!-- FOOTER -->
     <footer>
