@@ -30,6 +30,14 @@
   background: rgba(0, 0, 0, 0.5);
 }
 
-.sparkline {
-  height: 25px;
+.sparkline canvas {
+  height: 20px !important;
+}
+
+.img-circle {
+  display: inline-block;
+  width: 140px;
+  height: 140px;
+  background-position: 50%;
+  background-size: auto 100%;
 }
